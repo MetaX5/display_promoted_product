@@ -2,8 +2,6 @@
 
 namespace MM\WoocommercePromotedProduct\Admin;
 
-use MM\WoocommercePromotedProduct\Admin\Search_Products_By_Custom_Field;
-
 class Woocommerce_Custom_Settings
 {
     public function __construct()
@@ -17,6 +15,12 @@ class Woocommerce_Custom_Settings
         add_action('woocommerce_admin_field_link', array($this, 'adminFieldLink'), 10, 1);
     }
 
+    /**
+     * Add new section to the woocommerce settings products tab
+     *
+     * @param [type] $sections
+     * @return void
+     */
     public function addSection($sections)
     {
 
@@ -24,6 +28,14 @@ class Woocommerce_Custom_Settings
 
         return $sections;
     }
+
+    /**
+     * Add new fields to the created section
+     *
+     * @param [type] $settings
+     * @param [type] $currentSection
+     * @return void
+     */
     public function woocommerceProductsSettingsTabContent($settings, $currentSection)
     {
         if ('wc_promotion' !== $currentSection) {
@@ -63,15 +75,10 @@ class Woocommerce_Custom_Settings
         );
 
         // add information about promoted product
-        $productsQuery = Search_Products_By_Custom_Field::searchProductsByCustomField();
-        if ($productsQuery->have_posts()) {
-            while ($productsQuery->have_posts()) {
-                $productsQuery->the_post();
-                $productTitle = get_the_title();
-                $productLink = get_edit_post_link(get_the_ID());
-            }
-            wp_reset_postdata();
-
+        if (get_option('wpp_promoted_product_id') !== false) {
+            $productID = get_option('wpp_promoted_product_id');
+            $productLink = get_edit_post_link($productID);
+            $productTitle = get_the_title($productID);
             $settingsArray[] = array(
                 'title' => esc_html__('Promoted product', WPP_TEXT_DOMAIN),
                 'id' => 'wc_promotion_product_link',

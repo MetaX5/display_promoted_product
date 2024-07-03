@@ -1,6 +1,5 @@
 jQuery(document).ready(function () {
 	if (jQuery(".wpp_date").length === 0) {
-		console.log("custom_date not found");
 		return;
 	}
 

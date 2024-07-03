@@ -2,8 +2,11 @@
 
 namespace MM\WoocommercePromotedProduct\Admin;
 
-use MM\WoocommercePromotedProduct\Admin\Search_Products_By_Custom_Field;
-
+/**
+ * Adding new custom fields and saving them
+ * Enqueue scripts and styles for datetime picker
+ * Check if promoted product is only one
+ */
 class Product_Custom_Fields
 {
 
@@ -71,26 +74,50 @@ class Product_Custom_Fields
         woocommerce_wp_checkbox($args);
     }
 
+    /**
+     * Save the custom fields from the product
+     * Save the promoted product id
+     * Save the previous promoted product id
+     * Save the date to remove promotion
+     *
+     * @param [type] $post_id
+     * @return void
+     */
     public function customFieldsSave($post_id)
     {
-        // save the text field data
+        // save the title for promoted product
         $wc_text = isset($_POST['wpp_text_field_title']) ? esc_textarea($_POST['wpp_text_field_title']) : null;
         update_post_meta($post_id, 'wpp_text_field_title', $wc_text);
 
-        // save the checkbox field 1 data
+        // save the checkbox for promoted product
         $wc_checkbox1 = isset($_POST['wpp_checkbox_1']) ? 'yes' : 'no';
         update_post_meta($post_id, 'wpp_checkbox_1', $wc_checkbox1);
 
-        // save the checkbox field 2 data
+        // save the checkbox for enabling date
         $wc_checkbox2 = isset($_POST['wpp_checkbox_2']) ? 'yes' : 'no';
         update_post_meta($post_id, 'wpp_checkbox_2', $wc_checkbox2);
 
-        // save the text field 2 data
+        if ($wc_checkbox1 == 'yes') {
+            if (!get_option('wpp_promoted_product_id')) {
+                add_option('wpp_promoted_product_id', $post_id);
+            } else {
+                if (!get_option('wpp_previous_promoted_product_id')) {
+                    add_option('wpp_previous_promoted_product_id', get_option('wpp_promoted_product_id'));
+                } else {
+                    if (get_option('wpp_promoted_product_id') != $post_id) {
+                        update_option('wpp_previous_promoted_product_id', get_option('wpp_promoted_product_id'));
+                        update_option('wpp_promoted_product_id', $post_id);
+                    }
+                }
+            }
+        }
+
+        // save the expiration date
         if ($wc_checkbox2 == 'yes') {
             $wc_text = isset($_POST['wpp_date_to_remove_promotion']) ? esc_textarea($_POST['wpp_date_to_remove_promotion']) : '';
             update_post_meta($post_id, 'wpp_date_to_remove_promotion', $wc_text);
             if ($wc_checkbox1 == 'yes') {
-                if (get_option('wpp_date_to_remove_promotion') === false) {
+                if (get_option('wpp_date_to_remove_promotion')) {
                     add_option('wpp_date_to_remove_promotion', $wc_text);
                 } else {
                     update_option('wpp_date_to_remove_promotion', $wc_text);
@@ -100,12 +127,18 @@ class Product_Custom_Fields
             if (metadata_exists('post', $post_id, 'wpp_date_to_remove_promotion')) {
                 delete_post_meta($post_id, 'wpp_date_to_remove_promotion');
             }
-            if (get_option('wpp_date_to_remove_promotion') !== false) {
+            if (get_option('wpp_date_to_remove_promotion')) {
                 delete_option('wpp_date_to_remove_promotion');
             }
         }
     }
 
+    /**
+     * Enqueue scripts and styles for datetime picker
+     *
+     * @param [type] $hook
+     * @return void
+     */
     public function enqueueDatePicker($hook)
     {
         if ('post.php' != $hook) {
@@ -138,26 +171,18 @@ class Product_Custom_Fields
         );
     }
 
+    /**
+     * Remove promotion from previous promoted product when new product is promoted
+     *
+     * @return void
+     */
     public function setOnePromotedProduct()
     {
-        $productsQuery = Search_Products_By_Custom_Field::searchProductsByCustomField();
-
-        if ($productsQuery->post_count <= 1) {
-            return;
-        }
-
-        if ($productsQuery->have_posts()) {
-            while ($productsQuery->have_posts()) {
-                $productsQuery->the_post();
-                if ($productsQuery->current_post === 0) {
-                    continue;
-                }
-
-                update_post_meta(get_the_ID(), 'wpp_checkbox_1', 'no');
-                update_post_meta(get_the_ID(), 'wpp_checkbox_2', 'no');
-                update_post_meta(get_the_ID(), 'wpp_date_to_remove_promotion', '');
-            }
-            wp_reset_postdata();
+        if (get_option('wpp_previous_promoted_product_id') !== false) {
+            $previousProduct_Id = get_option('wpp_previous_promoted_product_id');
+            update_post_meta($previousProduct_Id, 'wpp_checkbox_1', 'no');
+            update_post_meta($previousProduct_Id, 'wpp_checkbox_2', 'no');
+            update_post_meta($previousProduct_Id, 'wpp_date_to_remove_promotion', '');
         }
     }
 }

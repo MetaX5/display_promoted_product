@@ -2,8 +2,6 @@
 
 namespace MM\WoocommercePromotedProduct\Frontend;
 
-use MM\WoocommercePromotedProduct\Admin\Search_Products_By_Custom_Field;
-
 class Promotion_Div_Shortcode
 {
     public function __construct()
@@ -16,32 +14,30 @@ class Promotion_Div_Shortcode
         add_shortcode('wpp_promotion', array($this, 'promotionDivShortcode'));
     }
 
+    /**
+     * Add shortcode to display the promoted product div
+     *
+     * @return void
+     */
     public function promotionDivShortcode()
     {
-        $productsQuery = Search_Products_By_Custom_Field::searchProductsByCustomField();
-        if ($productsQuery->have_posts()) {
+        if (get_option('wpp_promoted_product_id') !== false) {
             $html = '<div class="promotionDiv">';
-            while ($productsQuery->have_posts()) {
-                $productsQuery->the_post();
+            $productId = get_option('wpp_promoted_product_id');
+            $promotedTitle = get_option('wc_promotion_text', 'Flash Sale');
 
-                $productId = get_the_ID();
+            $productTitle = get_the_title();
 
-                $promotedTitle = get_option('wc_promotion_text', 'Flash Sale');
+            if ('' !== trim(get_post_meta($productId, 'wpp_text_field_title', true)) && null !== get_post_meta($productId, 'wpp_text_field_title', true)) {
+                $productTitle = get_post_meta($productId, 'wpp_text_field_title', true);
+            }
 
-                $productTitle = get_the_title();
-
-                if ('' !== trim(get_post_meta($productId, 'wpp_text_field_title', true)) && null !== get_post_meta($productId, 'wpp_text_field_title', true)) {
-                    $productTitle = get_post_meta($productId, 'wpp_text_field_title', true);
-                }
-
-                $html .= '
+            $html .= '
                             <p>' . $promotedTitle . ': ' . $productTitle . ' </p>
                         ';
 
-                $html .= '</div>';
-            }
+            $html .= '</div>';
             return $html;
-            wp_reset_postdata();
         }
     }
 }
