@@ -1,0 +1,16 @@
+{
+    "name": "mm/woocommerce-promoted-product",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "MM\\WoocommercePromotedProduct\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MetaX5",
+            "email": "metax1121@gmail.com"
+        }
+    ],
+    "require": {}
+}
