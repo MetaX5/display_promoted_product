@@ -2,7 +2,7 @@
 
 namespace MM\WoocommercePromotedProduct\Frontend;
 
-class Enqueue_Assets
+class EnqueueAssets
 {
     public function __construct()
     {

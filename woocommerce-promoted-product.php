@@ -19,11 +19,11 @@ if (!defined('ABSPATH')) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-use MM\WoocommercePromotedProduct\Admin\Product_Custom_Fields;
-use MM\WoocommercePromotedProduct\Admin\Woocommerce_Custom_Settings;
-use MM\WoocommercePromotedProduct\Frontend\Promotion_Div_Shortcode;
+use MM\WoocommercePromotedProduct\Admin\ProductCustomFields;
+use MM\WoocommercePromotedProduct\Admin\WoocommerceCustomSettings;
+use MM\WoocommercePromotedProduct\Frontend\PromotionDivShortcode;
 use MM\WoocommercePromotedProduct\Cron\ProductPromotionTime;
-use MM\WoocommercePromotedProduct\Frontend\Enqueue_Assets;
+use MM\WoocommercePromotedProduct\Frontend\EnqueueAssets;
 
 /**
  * Global constant for text domain
@@ -46,11 +46,11 @@ final class Woocommerce_Promoted_Product
         register_deactivation_hook(__FILE__, 'wppDeactivate');
         register_uninstall_hook(__FILE__, 'wppUninstall');
 
-        new Product_Custom_Fields();
-        new Woocommerce_Custom_Settings();
-        new Promotion_Div_Shortcode();
+        new ProductCustomFields();
+        new WoocommerceCustomSettings();
+        new PromotionDivShortcode();
         new ProductPromotionTime();
-        new Enqueue_Assets();
+        new EnqueueAssets();
     }
 
     /**

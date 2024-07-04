@@ -2,7 +2,7 @@
 
 namespace MM\WoocommercePromotedProduct\Frontend;
 
-class Promotion_Div_Shortcode
+class PromotionDivShortcode
 {
     public function __construct()
     {

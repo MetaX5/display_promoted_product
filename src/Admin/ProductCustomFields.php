@@ -7,7 +7,7 @@ namespace MM\WoocommercePromotedProduct\Admin;
  * Enqueue scripts and styles for datetime picker
  * Check if promoted product is only one
  */
-class Product_Custom_Fields
+class ProductCustomFields
 {
 
     public function __construct()

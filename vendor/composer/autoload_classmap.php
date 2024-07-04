@@ -7,9 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'MM\\WoocommercePromotedProduct\\Admin\\Product_Custom_Fields' => $baseDir . '/src/Admin/Product_Custom_Fields.php',
-    'MM\\WoocommercePromotedProduct\\Admin\\Woocommerce_Custom_Settings' => $baseDir . '/src/Admin/Woocommerce_Custom_Settings.php',
+    'MM\\WoocommercePromotedProduct\\Admin\\ProductCustomFields' => $baseDir . '/src/Admin/ProductCustomFields.php',
+    'MM\\WoocommercePromotedProduct\\Admin\\WoocommerceCustomSettings' => $baseDir . '/src/Admin/WoocommerceCustomSettings.php',
     'MM\\WoocommercePromotedProduct\\Cron\\ProductPromotionTime' => $baseDir . '/src/Cron/ProductPromotionTime.php',
-    'MM\\WoocommercePromotedProduct\\Frontend\\Enqueue_Assets' => $baseDir . '/src/Frontend/Enqueue_Assets.php',
-    'MM\\WoocommercePromotedProduct\\Frontend\\Promotion_Div_Shortcode' => $baseDir . '/src/Frontend/Promotion_Div_Shortcode.php',
+    'MM\\WoocommercePromotedProduct\\Frontend\\EnqueueAssets' => $baseDir . '/src/Frontend/EnqueueAssets.php',
+    'MM\\WoocommercePromotedProduct\\Frontend\\PromotionDivShortcode' => $baseDir . '/src/Frontend/PromotionDivShortcode.php',
 );

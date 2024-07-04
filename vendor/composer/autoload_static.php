@@ -22,11 +22,11 @@ class ComposerStaticInitcf9e9015127d64e5dbe66bf2197ea5f5
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'MM\\WoocommercePromotedProduct\\Admin\\Product_Custom_Fields' => __DIR__ . '/../..' . '/src/Admin/Product_Custom_Fields.php',
-        'MM\\WoocommercePromotedProduct\\Admin\\Woocommerce_Custom_Settings' => __DIR__ . '/../..' . '/src/Admin/Woocommerce_Custom_Settings.php',
+        'MM\\WoocommercePromotedProduct\\Admin\\ProductCustomFields' => __DIR__ . '/../..' . '/src/Admin/ProductCustomFields.php',
+        'MM\\WoocommercePromotedProduct\\Admin\\WoocommerceCustomSettings' => __DIR__ . '/../..' . '/src/Admin/WoocommerceCustomSettings.php',
         'MM\\WoocommercePromotedProduct\\Cron\\ProductPromotionTime' => __DIR__ . '/../..' . '/src/Cron/ProductPromotionTime.php',
-        'MM\\WoocommercePromotedProduct\\Frontend\\Enqueue_Assets' => __DIR__ . '/../..' . '/src/Frontend/Enqueue_Assets.php',
-        'MM\\WoocommercePromotedProduct\\Frontend\\Promotion_Div_Shortcode' => __DIR__ . '/../..' . '/src/Frontend/Promotion_Div_Shortcode.php',
+        'MM\\WoocommercePromotedProduct\\Frontend\\EnqueueAssets' => __DIR__ . '/../..' . '/src/Frontend/EnqueueAssets.php',
+        'MM\\WoocommercePromotedProduct\\Frontend\\PromotionDivShortcode' => __DIR__ . '/../..' . '/src/Frontend/PromotionDivShortcode.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

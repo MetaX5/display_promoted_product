@@ -2,7 +2,7 @@
 
 namespace MM\WoocommercePromotedProduct\Admin;
 
-class Woocommerce_Custom_Settings
+class WoocommerceCustomSettings
 {
     public function __construct()
     {
