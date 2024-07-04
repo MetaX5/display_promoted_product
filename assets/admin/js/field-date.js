@@ -3,10 +3,11 @@ jQuery(document).ready(function () {
 		return;
 	}
 
-	jQuery(".wpp_date").datetimepicker();
+	jQuery(".wpp_date").datetimepicker().attr("autocomplete", "off");
 
 	if (jQuery("#wpp_checkbox_2").is(":checked")) {
 		jQuery(".wpp_date").show();
+		jQuery(".wpp_date");
 	} else {
 		jQuery(".wpp_date").hide();
 	}

@@ -23,6 +23,7 @@ use MM\WoocommercePromotedProduct\Admin\Product_Custom_Fields;
 use MM\WoocommercePromotedProduct\Admin\Woocommerce_Custom_Settings;
 use MM\WoocommercePromotedProduct\Frontend\Promotion_Div_Shortcode;
 use MM\WoocommercePromotedProduct\Cron\ProductPromotionTime;
+use MM\WoocommercePromotedProduct\Frontend\Enqueue_Assets;
 
 /**
  * Global constant for text domain
@@ -48,6 +49,7 @@ final class Woocommerce_Promoted_Product
         new Woocommerce_Custom_Settings();
         new Promotion_Div_Shortcode();
         new ProductPromotionTime();
+        new Enqueue_Assets();
     }
 
     /**

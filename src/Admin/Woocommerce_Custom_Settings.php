@@ -6,12 +6,19 @@ class Woocommerce_Custom_Settings
 {
     public function __construct()
     {
-        // add new section
+        /**
+         * Add new section to the woocommerce->settings->products tab
+         */
         add_filter('woocommerce_get_sections_products', array($this, 'addSection'), 10, 1);
 
-        // add new settings to the created section
+        /**
+         * Add new settings to the created section
+         */
         add_filter('woocommerce_get_settings_products', array($this, 'woocommerceProductsSettingsTabContent'), 10, 2);
 
+        /**
+         * New admin field type link
+         */
         add_action('woocommerce_admin_field_link', array($this, 'adminFieldLink'), 10, 1);
     }
 
@@ -38,18 +45,25 @@ class Woocommerce_Custom_Settings
      */
     public function woocommerceProductsSettingsTabContent($settings, $currentSection)
     {
+        /**
+         * If the section is not wc_promotion, return
+         */
         if ('wc_promotion' !== $currentSection) {
             return $settings;
         }
 
         $settingsArray = array();
 
-        // Add Title to the Settings
 
+        /**
+         * Add Title to the Settings
+         */
         $settingsArray[] = array('name' => esc_html__('Product Promotion', WPP_TEXT_DOMAIN), 'type' => 'title', 'desc' => __('The following options are used to configure Product Promotion', WPP_TEXT_DOMAIN), 'id' => 'wc_promotion');
 
 
-        // add text field
+        /**
+         * Add text field
+         */
         $settingsArray[] = array(
             'name' => esc_html__('Title for a promoted product', WPP_TEXT_DOMAIN),
             'desc_tip' => __('This is the title for a promoted product', WPP_TEXT_DOMAIN),
@@ -58,7 +72,9 @@ class Woocommerce_Custom_Settings
 
         );
 
-        // add colorpicker for background color
+        /**
+         * Add colorpicker for background color
+         */
         $settingsArray[] = array(
             'name' => esc_html__('Background color', WPP_TEXT_DOMAIN),
             'id' => 'wc_promotion_bg_color',
@@ -66,7 +82,9 @@ class Woocommerce_Custom_Settings
 
         );
 
-        // add colorpicker for text color
+        /**
+         * Add colorpicker for text color
+         */
         $settingsArray[] = array(
             'name' => esc_html__('Text color', WPP_TEXT_DOMAIN),
             'id' => 'wc_promotion_text_color',
@@ -74,7 +92,9 @@ class Woocommerce_Custom_Settings
 
         );
 
-        // add information about promoted product
+        /**
+         * Add information about promoted product
+         */
         if (get_option('wpp_promoted_product_id') !== false) {
             $productID = get_option('wpp_promoted_product_id');
             $productLink = get_edit_post_link($productID);
@@ -92,6 +112,12 @@ class Woocommerce_Custom_Settings
         return $settingsArray;
     }
 
+    /**
+     * Add new admin field type link to the settings
+     *
+     * @param [type] $value
+     * @return void
+     */
     public function adminFieldLink($value)
     {
 ?>

@@ -7,10 +7,7 @@ class Promotion_Div_Shortcode
     public function __construct()
     {
         //add_action('woocommerce_before_main_content', array($this, 'contentContentBeforeMainContent'));
-        /*add_filter('posts_request', function ($sql) {
-            error_log('SQL=' . $sql);
-            return $sql;
-        });*/
+
         add_shortcode('wpp_promotion', array($this, 'promotionDivShortcode'));
     }
 
@@ -21,8 +18,13 @@ class Promotion_Div_Shortcode
      */
     public function promotionDivShortcode()
     {
+        $bgColor = (get_option('wc_promotion_bg_color')) ? get_option('wc_promotion_bg_color') : 'inherit';
+        $textColor = (get_option('wc_promotion_text_color')) ? get_option('wc_promotion_text_color') : 'inherit';
+
+        $styles = "background-color: $bgColor; color: $textColor;";
+
         if (get_option('wpp_promoted_product_id') !== false) {
-            $html = '<div class="promotionDiv">';
+            $html = '<div style="' . $styles . '" class="promotionDiv">';
             $productId = get_option('wpp_promoted_product_id');
             $promotedTitle = get_option('wc_promotion_text', 'Flash Sale');
 
@@ -33,7 +35,7 @@ class Promotion_Div_Shortcode
             }
 
             $html .= '
-                            <p>' . $promotedTitle . ': ' . $productTitle . ' </p>
+                            <span>' . $promotedTitle . ': ' . $productTitle . ' </span>
                         ';
 
             $html .= '</div>';
