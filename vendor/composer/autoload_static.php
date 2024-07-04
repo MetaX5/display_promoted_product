@@ -23,7 +23,6 @@ class ComposerStaticInitcf9e9015127d64e5dbe66bf2197ea5f5
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'MM\\WoocommercePromotedProduct\\Admin\\Product_Custom_Fields' => __DIR__ . '/../..' . '/src/Admin/Product_Custom_Fields.php',
-        'MM\\WoocommercePromotedProduct\\Admin\\Search_Products_By_Custom_Field' => __DIR__ . '/../..' . '/src/Admin/Search_Products_By_Custom_Field.php',
         'MM\\WoocommercePromotedProduct\\Admin\\Woocommerce_Custom_Settings' => __DIR__ . '/../..' . '/src/Admin/Woocommerce_Custom_Settings.php',
         'MM\\WoocommercePromotedProduct\\Cron\\ProductPromotionTime' => __DIR__ . '/../..' . '/src/Cron/ProductPromotionTime.php',
         'MM\\WoocommercePromotedProduct\\Frontend\\Enqueue_Assets' => __DIR__ . '/../..' . '/src/Frontend/Enqueue_Assets.php',

@@ -152,9 +152,9 @@ class Product_Custom_Fields
             } else {
                 if (get_option('wpp_promoted_product_id') != $post_id) {
                     update_option('wpp_previous_promoted_product_id', get_option('wpp_promoted_product_id'));
-                    update_option('wpp_promoted_product_id', $post_id);
                 }
             }
+            update_option('wpp_promoted_product_id', $post_id);
         }
 
         /**

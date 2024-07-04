@@ -43,7 +43,8 @@ final class Woocommerce_Promoted_Product
 {
     public function __construct()
     {
-        register_deactivation_hook(__FILE__, 'wpp_deactivate');
+        register_deactivation_hook(__FILE__, 'wppDeactivate');
+        register_uninstall_hook(__FILE__, 'wppUninstall');
 
         new Product_Custom_Fields();
         new Woocommerce_Custom_Settings();
@@ -57,10 +58,20 @@ final class Woocommerce_Promoted_Product
      *
      * @return void
      */
-    public function wpp_deactivate()
+    public function wppDeactivate()
     {
         $timestamp = wp_next_scheduled('wpp_cron_hook');
         wp_unschedule_event($timestamp, 'wpp_cron_hook');
+    }
+
+    /**
+     * Clean up when uninstalling the plugin
+     */
+    public function wppUninstall()
+    {
+        delete_option('wpp_promoted_product_id');
+        delete_option('wpp_previous_promoted_product_id');
+        delete_option('wpp_date_to_remove_promotion');
     }
 }
 

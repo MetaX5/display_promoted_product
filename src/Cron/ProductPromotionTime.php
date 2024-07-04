@@ -53,6 +53,7 @@ class ProductPromotionTime
             update_post_meta($productID, 'wpp_date_to_remove_promotion', '');
             delete_option('wpp_promoted_product_id');
             delete_option('wpp_previous_promoted_product_id');
+            delete_option('wpp_date_to_remove_promotion');
             $timestamp = wp_next_scheduled('wpp_cron_hook');
             wp_unschedule_event($timestamp, 'wpp_cron_hook');
         }
